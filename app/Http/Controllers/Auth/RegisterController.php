@@ -87,7 +87,7 @@ class RegisterController extends Controller
         $template = new SendCloudTemplate('zhihu', $data);
 
         Mail::raw($template, function ($message) use($user) {
-            $message->from('chenjiehui0807@qq.com', 'zhihu');
+            $message->from('chenjiehui0807@test.com', 'zhihu');
             $message->to($user->email);
         });
 
