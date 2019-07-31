@@ -100,9 +100,15 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'email' => [
+            'unique' => '邮箱已被占用',
         ],
+        'password' => [
+            'confirmed' => '两次密码不一致',
+            // 'size' => [
+            //     'string' => '6',
+            // ]
+        ]
     ],
 
     /*
@@ -119,3 +125,4 @@ return [
     'attributes' => [],
 
 ];
+   
