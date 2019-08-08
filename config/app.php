@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://test.zhihu.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -167,6 +167,8 @@ return [
         /*
          * Package Service Providers...
          */
+        Overtrue\LaravelUEditor\UEditorServiceProvider::class,
+
 
         /*
          * Application Service Providers...
