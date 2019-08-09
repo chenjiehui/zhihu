@@ -11,13 +11,26 @@
 
                 <div class="panel-body">
                     <form action="/questions" method="post">
-                        <div class="form-group">
+                        <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <label for="title">标题</label>
-                            <input type="text" name="title" class="form-control" placeholder="标题" id="title">
+                            <input type="text" name="title" value="{{ old('title')}}" class="form-control" placeholder="标题" id="title">
+
+                            @if ($errors->has('title'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('title') }}</strong>
+                                    </span>
+                            @endif
                         </div>
-                        <script id="container" name="body" type="text/plain"></script>
-                        <button class="btn btn-success pull-right" type="submit" >发布问题</button>
+                        <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
+                            <script id="container" name="body"  type="text/plain">{!! old('body') !!}</script>
+                            @if ($errors->has('body'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('body') }}</strong>
+                                </span>
+                            @endif
+                            <button class="btn btn-success pull-right" type="submit" >发布问题</button>
+                        </div>
                     </form>
                 </div>
             </div>
