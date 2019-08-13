@@ -13,3 +13,4 @@ class Question extends Model
         return $this->belongsToMany(Topic::class)->withTimestamps();
     }
 }
+ 
