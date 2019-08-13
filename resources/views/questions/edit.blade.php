@@ -10,7 +10,7 @@
                 <div class="panel-heading">编辑问题</div>
 
                 <div class="panel-body">
-                    <form action="/questions" method="post">
+                    <form action="/questions/{{ $question->id }}" method="post">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }} 
                         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">

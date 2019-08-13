@@ -83,9 +83,17 @@ class QuestionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreQuestionRequest $request, $id)
     {
-        //
+        $data = [
+            'title' => $request->input('title'),
+            'body' => $request->input('body')
+        ];
+
+        Question::where('id', $id)->update($data);
+
+        return redirect()->route('questions.show', ['id' => $id]);
+
     }
 
     /**
