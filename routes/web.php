@@ -24,5 +24,6 @@ Route::get('email/verify/{token}', ['as' => 'email.verify', 'uses' => 'EmailCont
 Route::resource('questions', 'QuestionsController')->names([
     'create' => 'questions.create',
     'show' => 'questions.show',
-    'edit' => 'questions.edit'
+    'edit' => 'questions.edit',
+    'index' => 'questions.index'
 ]);

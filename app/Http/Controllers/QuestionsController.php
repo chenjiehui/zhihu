@@ -6,12 +6,16 @@ use Illuminate\Http\Request;
 use App\Question;
 use Auth;
 use App\Http\Requests\StoreQuestionRequest;
+use App\Repositories\QuestionRepository;
 
 class QuestionsController extends Controller
 {
-    public function __construct()
+    protected $questionRepository;
+
+    public function __construct(QuestionRepository $questionRepository)
     {
         $this->middleware('auth')->except(['index', 'show']);
+        $this->questionRepository = $questionRepository;
     }
 
     /**
@@ -21,7 +25,8 @@ class QuestionsController extends Controller
      */
     public function index()
     {
-        //
+        $questions = $this->questionRepository->getAllQuestions();
+        return view('questions.index', compact('questions'));
     }
 
     /**
@@ -48,7 +53,7 @@ class QuestionsController extends Controller
             'user_id' => Auth::id(),
         ];
 
-        $question = Question::create($data);
+        $question = $this->questionRepository->create($data);
         return redirect()->route('questions.show', [$question->id]);
     }
 
@@ -60,7 +65,7 @@ class QuestionsController extends Controller
      */
     public function show($id)
     {
-        $question = Question::find($id);
+        $question = $this->questionRepository->getQuestionById($id);
         return view('questions.show', compact('question'));
     }
 
@@ -91,9 +96,9 @@ class QuestionsController extends Controller
         ];
 
         Question::where('id', $id)->update($data);
+        flash('修改成功')->success();
 
         return redirect()->route('questions.show', ['id' => $id]);
-
     }
 
     /**
@@ -104,6 +109,14 @@ class QuestionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $question = $this->questionRepository->getQuestionById($id);
+
+        if(Auth::user()->owns($quesion)){
+            $question->delete();
+            
+            return redirect('/');
+        }
+
+        abort(403, 'Forbidden');
     }
 }

@@ -10,6 +10,16 @@
                 <div class="panel-body">
                     {!! $question->body !!}
                 </div>
+                <div class="actions">
+                    @if(Auth::check() && Auth::user()->owns($question))
+                        <span class="edit"><a href="/question/{{ $question->id }}/edit">编辑</a></span>
+                        <form action="/question/{{ $question->id }}">
+                            {{ method_field('DELETE')}}
+                            {{ crsf_token()}}
+                            <button class="button delete-button">删除</button>
+                        </form>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
