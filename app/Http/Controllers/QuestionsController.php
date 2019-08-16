@@ -28,7 +28,7 @@ class QuestionsController extends Controller
         $questions = $this->questionRepository->getAllQuestions();
         return view('questions.index', compact('questions'));
     }
-
+ 
     /**
      * Show the form for creating a new resource.
      *
@@ -65,7 +65,8 @@ class QuestionsController extends Controller
      */
     public function show($id)
     {
-        $question = $this->questionRepository->getQuestionById($id);
+        $question = $this->questionRepository->getQuestionAndAnswersById($id);
+        // dd($question);exit;
         return view('questions.show', compact('question'));
     }
 
@@ -111,11 +112,10 @@ class QuestionsController extends Controller
     {
         $question = $this->questionRepository->getQuestionById($id);
 
-        if(Auth::user()->owns($quesion)){
+        // if(Auth::user()->owns($question)){
             $question->delete();
-            
             return redirect('/');
-        }
+        // }
 
         abort(403, 'Forbidden');
     }

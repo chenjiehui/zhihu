@@ -27,3 +27,5 @@ Route::resource('questions', 'QuestionsController')->names([
     'edit' => 'questions.edit',
     'index' => 'questions.index'
 ]);
+
+Route::post('questions/{question}/answer', 'AnswersController@store');
