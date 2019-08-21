@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\QuestionFollow;
 
 class User extends Authenticatable
 {
@@ -30,5 +31,15 @@ class User extends Authenticatable
     public function answers()
     {
         return $this->hasMany(Answer::class);
+    }
+
+    public function follows()
+    {
+        return $this->belongsToMany(Question::class, 'question_follows')->withTimestamps();
+    }
+
+    public function followThis($questionId)
+    {
+        return $this->follows()->toggle($questionId);
     }
 }
